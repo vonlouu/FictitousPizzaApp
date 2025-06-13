@@ -35,9 +35,11 @@ A responsive and feature-rich Angular + .NET 9 web application for managing pizz
 
 ### 1. Clone the Repository
 
---bash
+```
+bash
 git clone https://github.com/vonlouu/FictitousPizzaApp.git
 cd FictitousPizzaApp
+```
 
 ### 2. Run the Backend (.NET API)
 
@@ -51,18 +53,23 @@ By default, the API runs at: https://localhost:7061/
 
 ### 3. Run the Frontend (Angular App)
 
+```
 cd spa/ClientApp
 npm install --legacy-peer-deps
 ng serve
+```
 By default, the frontend runs at: http://localhost:4200/
 If you're using a different host or port, make sure to update the CORS settings in the backend.
 
 Environment Variables (Optional)
 If needed, update environment.ts - will vary depending on which server host it.
+```
 export const environment = {
   production: false,
   apiUrl: 'https://localhost:7061/api'
 };
+```
+
 
 
 
