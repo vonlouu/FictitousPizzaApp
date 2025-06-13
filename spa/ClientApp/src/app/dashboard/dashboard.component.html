@@ -1,42 +1,72 @@
-<div class="container-fluid dashboard-container h-100 w-100 d-flex flex-column pt-3">
+<div
+  class="container-fluid dashboard-container h-100 w-100 d-flex flex-column pt-3"
+>
   <div class="dashboard-header mb-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap">
-      <h2 class="mb-3">Pizza Order Dashboard</h2>
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <h2 class="mb-0">Pizza Order Dashboard</h2>
 
-      <div class="d-flex gap-2 align-items-center">
-        <div class="input-group search-box">
-          <span class="input-group-text">
-            <i class="bi bi-search"></i>
-          </span>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search orders by id or pizza name..."
-            [formControl]="searchTerm"
-            (keyup.enter)="loadOrders()"
-          />
-        </div>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+    
+      <div class="input-group search-box">
+        <span class="input-group-text bg-white border-end-0">
+          <i class="bi bi-search text-muted"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control border-start-0"
+          placeholder="Search by ID or pizza name..."
+          [formControl]="searchTerm"
+          (keyup.enter)="loadOrders()"
+        />
+      </div>
 
-        <div class="page-size-dropdown" [class.show]="showDropdown">
-          <button
-            class="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            (click)="toggleDropdown()"
-          >
-            {{ pageSize }} per page
-          </button>
-          <ul class="dropdown-menu" [class.show]="showDropdown">
-            <li *ngFor="let size of pageSizeOptions">
-              <a class="dropdown-item" (click)="changePageSize(size)"
-                >{{ size }} per page</a
-              >
-            </li>
-          </ul>
-        </div>
+     
+      <div class="dropdown">
+        <button
+          class="btn btn-outline-secondary dropdown-toggle"
+          type="button"
+          id="pageSizeDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          (click)="toggleDropdown()"
+
+        >
+          {{ pageSize }} / page
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown" [class.show]="showDropdown">
+          <li *ngFor="let size of pageSizeOptions">
+            <button class="dropdown-item" (click)="changePageSize(size)">
+              {{ size }} per page
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      
+      <div class="d-flex align-items-center gap-2">
+        <label class="mb-0">Sort:</label>
+        <select
+          class="form-select form-select-sm"
+          [formControl]="sortBy"
+          (change)="onSortChange()"
+        >
+          <option value="OrderDate">Date</option>
+          <option value="TotalItems">Pizza Count</option>
+          <option value="TotalAmount">Amount</option>
+        </select>
+
+        <button
+          class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1"
+          (click)="toggleSortOrder()"
+          [attr.aria-label]="'Sort ' + (ascending ? 'Descending' : 'Ascending')"
+        >
+          <i class="bi" [ngClass]="ascending ? 'bi-sort-down' : 'bi-sort-up'"></i>
+          {{ ascending ? 'Asc' : 'Desc' }}
+        </button>
       </div>
     </div>
   </div>
-
+</div>
   <div
     *ngIf="loading"
     class="loader-container d-flex flex-column align-items-center justify-content-center text-center my-5"
@@ -62,7 +92,7 @@
                 {{ order.orderDate | date }}
               </span>
               <span class="badge bg-success rounded-pill">
-                ₱{{ order.totalAmount | number : "1.2-2" }}
+                {{ order.totalAmount | currency }}
               </span>
             </div>
           </div>
@@ -86,7 +116,7 @@
                   d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"
                 />
               </svg>
-              {{ getOrderDateTime(order) | date : 'h:mm:ss a'}}
+              {{ getOrderDateTime(order) | date : "h:mm:ss a" }}
             </span>
             <span class="meta-item">
               <svg
@@ -128,10 +158,12 @@
                   <td>
                     <span class="size-badge">{{ pizza.size }}</span>
                   </td>
-                  <td class="price">₱{{ pizza.price | number : "1.2-2" }}</td>
-                  <td class="quantity d-flex justify-content-start">{{ pizza.quantity }}</td>
+                  <td class="price">{{ pizza.price | currency }}</td>
+                  <td class="quantity d-flex justify-content-start">
+                    {{ pizza.quantity }}
+                  </td>
                   <td class="price">
-                    ₱{{ pizza.price * pizza.quantity | number : "1.2-2" }}
+                    {{ pizza.price * pizza.quantity | number : "1.2-2" }}
                   </td>
                 </tr>
               </tbody>

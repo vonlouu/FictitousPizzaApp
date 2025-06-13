@@ -49,6 +49,9 @@ public class OrderService : IOrderService
             "totalitems" => ascending
                 ? query.OrderBy(o => o.OrderDetails.Sum(od => od.Quantity))
                 : query.OrderByDescending(o => o.OrderDetails.Sum(od => od.Quantity)),
+            "totalamount" => ascending
+            ? query.OrderBy(o => o.OrderDetails.Sum(od => od.Quantity * od.Pizza.Price))
+            : query.OrderByDescending(o => o.OrderDetails.Sum(od => od.Quantity * od.Pizza.Price)),
             _ => query.OrderByDescending(o => o.Date)
         };
 

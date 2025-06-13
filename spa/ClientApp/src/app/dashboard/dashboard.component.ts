@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 50, 100];
   totalItems: number = 0;
   totalPages: number = 1;
-  sortBy: string = 'OrderDate';
+  sortBy = new FormControl('OrderDate');
   ascending: boolean = true;
   Math = Math;
   showDropdown = false;
@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     let params = new HttpParams()
       .set('page', this.currentPage.toString())
       .set('pageSize', this.pageSize.toString())
-      .set('sortBy', this.sortBy)
+      .set('sortBy', this.sortBy.value ?? 'OrderDate')
       .set('ascending', this.ascending.toString());
 
     if (this.searchTerm.value) {
@@ -101,13 +101,24 @@ export class DashboardComponent implements OnInit {
   }
 
   getOrderDateTime(order: any): Date {
-    const time = order?.orderTime?.split(":")
+    const time = order?.orderTime?.split(':');
 
-    const orderDate = new Date(order?.orderDate)
+    const orderDate = new Date(order?.orderDate);
     if (time && time.length > 0) {
-      orderDate.setHours(time[0], time[1], time[2])
+      orderDate.setHours(time[0], time[1], time[2]);
     }
 
-    return orderDate
+    return orderDate;
+  }
+
+  onSortChange(): void {
+    this.currentPage = 1;
+    this.loadOrders();
+  }
+
+  toggleSortOrder(): void {
+    this.ascending = !this.ascending;
+    this.currentPage = 1;
+    this.loadOrders();
   }
 }
