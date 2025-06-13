@@ -1,36 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PizzaApp.Domain.Interface;
+using PizzaApp.Domain.Service;
 using PizzaApp.Entity.Context;
 using PizzaApp.Entity.Data;
 using PizzaApp.Entity.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+
 var configuration = builder.Configuration;
 
-// Add controllers and API explorer for Swagger
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer(); // Required for Swagger
 
-// Configure Swagger
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer(); 
+
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Pizza API", Version = "v1" });
 });
 
-// Database configuration
+
 builder.Services.AddDbContext<PizzaDbContext>(opt =>
 {
     opt.UseSqlServer(configuration.GetConnectionString("pizzaApp.DB"));
 });
 
-// Dependency Injection
+
 builder.Services.AddScoped<IPizzaMapper, PizzaMapper>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IInsightService, InsightService>();
 
 builder.Services.AddCors(options =>
 {
@@ -43,7 +45,7 @@ options.AddPolicy("CorsPolicy-public",
 });
 var app = builder.Build();
 
-// Database seeding
+// Database seeding from csv file
 using (var scope = app.Services.CreateScope())
 {
     try
@@ -61,7 +63,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline
+
 app.UseCors("CorsPolicy-public");
 if (app.Environment.IsDevelopment())
 {
@@ -69,7 +71,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pizza API v1");
-        c.RoutePrefix = "swagger"; // Changed from string.Empty to "swagger"
+        c.RoutePrefix = "swagger"; 
     });
 }
 
