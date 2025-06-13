@@ -39,7 +39,7 @@ A responsive and feature-rich Angular + .NET 9 web application for managing pizz
 git clone https://github.com/vonlouu/FictitousPizzaApp.git
 cd FictitousPizzaApp
 
-2. Run the Backend (.NET API)
+### 2. Run the Backend (.NET API)
 
 Download the CSV files from Kaggle: https://www.kaggle.com/datasets/mysarahmadbhat/pizza-place-sales
 Extract the ZIP file and copy the CSV files (orders.csv, order_details.csv, pizzas.csv, pizza_types.csv).
@@ -49,7 +49,7 @@ Create a folder named Data and paste the CSV files there.
 then dotnet run
 By default, the API runs at: https://localhost:7061/
 
-3. Run the Frontend (Angular App)
+### 3. Run the Frontend (Angular App)
 
 cd spa/ClientApp
 npm install --legacy-peer-deps
