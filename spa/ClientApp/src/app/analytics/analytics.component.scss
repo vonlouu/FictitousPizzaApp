@@ -1,0 +1,156 @@
+.analytics-container {
+
+  max-width: 100%;
+  margin: 0 auto;
+  max-height: calc(100% - 66px);
+  padding: 1rem 2rem;
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+
+  .analytics-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .year-badge {
+      background: #3f51b5;
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+  }
+
+  .date-filter {
+    width: 120px;
+  }
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .card-content {
+      display: flex;
+      flex-direction: column;
+
+      .card-label {
+        font-size: 0.875rem;
+        color: #666;
+        margin-bottom: 0.25rem;
+      }
+
+      .card-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.2;
+      }
+
+      .card-subtext {
+        font-size: 0.75rem;
+        color: #888;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  .revenue-card {
+    .card-icon {
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    }
+  }
+
+  .orders-card {
+    .card-icon {
+      background: linear-gradient(135deg, #2196F3 0%, #0D47A1 100%);
+    }
+  }
+
+  .best-seller-card {
+    .card-icon {
+      background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+    }
+  }
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.chart-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h3 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #2c3e50;
+    }
+  }
+
+  .chart-container {
+    position: relative;
+    height: 300px;
+
+    @media (min-width: 768px) {
+      height: 350px;
+    }
+  }
+}

@@ -1,0 +1,89 @@
+<div class="analytics-container">
+  <div class="analytics-header">
+    <h1 class="analytics-title">
+      Sales Analytics <span class="year-badge">Year 2015</span>
+    </h1>
+  </div>
+
+  <div class="summary-cards">
+    <div class="summary-card revenue-card">
+      <div class="card-icon">
+        <i class="bi bi-cash-stack"></i>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Total Revenue</span>
+        <span class="card-value">{{ summary?.totalRevenue | currency }}</span>
+      </div>
+    </div>
+
+    <div class="summary-card orders-card">
+      <div class="card-icon">
+        <i class="bi bi-cart-check"></i>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Total Orders</span>
+        <span class="card-value">{{ summary?.totalOrders | number }}</span>
+      </div>
+    </div>
+
+    <div class="summary-card best-seller-card">
+      <div class="card-icon">
+        <i class="bi bi-trophy"></i>
+      </div>
+      <div class="card-content">
+        <span class="card-label">Best Seller</span>
+        <span class="card-value">{{ topPizzas?.name || "N/A" }}</span>
+        <span class="card-subtext"
+          >{{ topPizzas?.totalSold | number }} sold</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Monthly Sales Trend</h3>
+      </div>
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="monthlySalesChartData"
+          [type]="lineChartType"
+          [options]="chartOptions"
+        >
+        </canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Top 5 Pizzas</h3>
+      </div>
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="topPizzasChartData"
+          [type]="barChartType"
+          [options]="chartOptions"
+        >
+        </canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-header">
+        <h3>Sales by Category</h3>
+      </div>
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="categoryChartData"
+          [type]="pieChartType"
+          [options]="chartOptions"
+        >
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>
