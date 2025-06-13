@@ -61,7 +61,7 @@
           [attr.aria-label]="'Sort ' + (ascending ? 'Descending' : 'Ascending')"
         >
           <i class="bi" [ngClass]="ascending ? 'bi-sort-down' : 'bi-sort-up'"></i>
-          {{ ascending ? 'Asc' : 'Desc' }}
+          {{ ascending ? 'Ascending' : 'Descending' }}
         </button>
       </div>
     </div>
@@ -163,7 +163,7 @@
                     {{ pizza.quantity }}
                   </td>
                   <td class="price">
-                    {{ pizza.price * pizza.quantity | number : "1.2-2" }}
+                    {{ pizza.price * pizza.quantity | currency }}
                   </td>
                 </tr>
               </tbody>
